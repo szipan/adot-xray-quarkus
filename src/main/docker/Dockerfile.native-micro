@@ -10,11 +10,11 @@
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile.native-micro -t quarkus/adot-xray-quarkus .
+# docker build -f src/main/docker/Dockerfile.native-micro -t quarkus/amazon-dynamodb-quickstart .
 #
 # Then run the container using:
 #
-# docker run -i --rm -p 8080:8080 quarkus/adot-xray-quarkus
+# docker run -i --rm -p 8080:8080 quarkus/amazon-dynamodb-quickstart
 #
 ###
 FROM quay.io/quarkus/quarkus-micro-image:2.0
