@@ -81,7 +81,6 @@ FROM registry.access.redhat.com/ubi8/openjdk-11:1.15
 
 ENV LANGUAGE='en_US:en'
 
-
 # We make four distinct layers so if there are application changes the library layers can be re-used
 COPY --chown=185 target/quarkus-app/lib/ /deployments/lib/
 COPY --chown=185 target/quarkus-app/*.jar /deployments/
@@ -92,9 +91,6 @@ EXPOSE 8080
 USER 185
 ENV AB_JOLOKIA_OFF=""
 ENV JAVA_OPTS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
-ENV JAVA_APP_JAR="/deployments/quarkus-run.jar"
 
-RUN mvn clean package -DskipTests
 RUN curl -L https://github.com/aws-observability/aws-otel-java-instrumentation/releases/download/v1.19.2/aws-opentelemetry-agent.jar --output opentelemetry-javaagent-all.jar
-ENTRYPOINT [ "java", "-javaagent:opentelemetry-javaagent-all.jar", "-jar", "$JAVA_APP_JAR" ]
-#ENTRYPOINT [ "java", "-jar", "$JAVA_APP_JAR" ]
+ENTRYPOINT [ "java", "-javaagent:opentelemetry-javaagent-all.jar", "-jar", "/deployments/quarkus-run.jar" ]
